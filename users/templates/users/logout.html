@@ -1,0 +1,14 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+
+
+
+<form method="post" action="{% url 'users:logout' %}?next={% url 'learning_logs:index' %}">
+    <p>Are you sure you want to log out?</p>
+    {% csrf_token %}
+    <button type="submit">Log out</button>
+</form>
+
+
+{% endblock content %}

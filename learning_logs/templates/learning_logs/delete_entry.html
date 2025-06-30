@@ -1,0 +1,41 @@
+{% extends "learning_logs/base.html" %}
+
+{% block header %}
+<div class="text-center">
+    <h2 style="font-weight: bold; animation: fadeInDown 1s;">Delete Entry</h2>
+    <p style="color: #d9534f;">Are you sure you want to delete this entry?</p>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="well" style="padding: 20px; border-radius: 10px; animation: fadeInDown 1.2s;">
+
+            <p style="font-size: 1.1em;">{{ entry.text|linebreaks }}</p>
+
+            <form method="post" action="{% url 'learning_logs:delete_entry' entry.id %}">
+                {% csrf_token %}
+                
+                <div class="text-center" style="margin-top: 20px;">
+                    <button type="submit" class="btn btn-danger btn-lg">
+                        <span class="glyphicon glyphicon-trash"></span> Yes, Delete
+                    </button>
+
+                    <a href="{% url 'learning_logs:topic' topic.id %}" class="btn btn-default btn-lg" style="margin-left: 15px;">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Simple fade-in animation -->
+<style>
+    @keyframes fadeInDown {
+        0% { opacity: 0; transform: translateY(-20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+</style>
+{% endblock content %}

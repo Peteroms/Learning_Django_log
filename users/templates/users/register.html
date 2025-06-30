@@ -1,0 +1,40 @@
+{% extends "learning_logs/base.html" %}
+
+{% block header %}
+<div class="text-center">
+    <h2 style="font-weight: bold; animation: fadeInDown 1s;">Create Your Account</h2>
+    <p style="color: #777;">Start tracking your learning journey today.</p>
+</div>
+
+{% endblock header %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+
+      <form method="post" action="{% url 'users:register' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success btn-block" style="font-size: 1.2em;">
+            <span class="glyphicon glyphicon-ok"></span>Register</button>
+
+        <input type="hidden" name="next" value="{% url 'learning_logs:index' %}" />
+    </form>
+
+    <div class="text-center" style="margin-top: 15px;">
+            <p>Already have an account? <a href="{% url 'users:login' %}">Log in here</a></p>
+        </div>
+    </div>
+</div>
+
+<!-- Simple fade-in animation -->
+<style>
+    @keyframes fadeInDown {
+        0% { opacity: 0; transform: translateY(-20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+
+{% endblock content %}

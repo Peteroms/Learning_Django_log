@@ -1,0 +1,40 @@
+{% extends "learning_logs/base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}
+<div class="text-center">
+ <h2 style="font-weight: bold; animation: fadeInDown 1s;">Log in to your account.</h2>
+ <p style="color: #777;">Welcome back! Please enter your credentials to continue.</p>
+</div>
+{% endblock header %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <form method="post" action="{% url 'users:login' %}" class="form">
+         {% csrf_token %}
+         {% bootstrap_form form %}
+
+         {% buttons %}
+
+        <button type="submit" class="btn btn-primary btn-block" style="font-size: 1.2em;">
+            <span class="glyphicon glyphicon-log-in"></span>Log in</button>
+         {% endbuttons %}
+
+    <input type="hidden" name="next" value="{% url 'learning_logs:index' %}" />
+</form>
+
+<div class="text-center" style="margin-top: 15px;">
+    <p>Don't have an account? <a href="{% url 'users:register' %}">Register here</a>.</p>
+</div>
+    </div>
+
+    <!-- Simple fade-in animation -->
+    <style>
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+{% endblock content %}

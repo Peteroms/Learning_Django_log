@@ -1,0 +1,36 @@
+{% extends "learning_logs/base.html" %}
+
+
+{% block header %}
+<div class="text-decoration">
+    <h2 style="font-weight: bold; animation: fadeInDown 1s;">Add a New Entry</h2>
+    <p style="color: #777;">You're adding an entry for: <strong>{{ topic }}</strong></p>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="text-decoration" style="margin-bottom: 5px;">
+  <a href="{% url 'learning_logs:topic' topic.id %}" class="btn btn-default">
+    <span class="glyphicon glyphicon-arrow-left"></span>Back to {{ topic }}</a>
+</div>
+
+ <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <form action="{% url 'learning_logs:new_entry' topic.id %}" method='post' class="form well text-left" style="padding: 20px; border-radius: 10px; animation: fadeInDown 1.2s;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit" class="btn btn-success btn-block" style="font-size: 1.2em;">
+          <span class="glyphicon glyphicon-plus"></span>Add Entry</button>
+    </form>
+  </div>
+ </div>
+
+ <!-- Simple fade-in animation -->
+<style>
+    @keyframes fadeInDown {
+        0% { opacity: 0; transform: translateY(-20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+ {% endblock content %}
