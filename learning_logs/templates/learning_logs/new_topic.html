@@ -1,11 +1,28 @@
 {% extends "learning_logs/base.html" %}
+{% load bootstrap3 %}
 
 {% block content %}
- <p>Add a new topic:</p>
- <form action="{% url 'learning_logs:new_topic' %}" method='post'>
-     {% csrf_token %}
-     {{ form.as_p }}
-     <button name="submit">add topic</button>
- </form>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h2 class="text-center">Add a New Topic</h2>
 
- {% endblock content %}
+        <form action="{% url 'learning_logs:new_topic' %}" method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+
+            <div class="text-center" style="margin-top: 20px;">
+                {% buttons %}
+                    <button name="submit" class="btn btn-success btn-lg">Add Topic</button>
+                {% endbuttons %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+<!-- Simple fade-in animation -->
+<style>
+    @keyframes fadeInDown {
+        0% { opacity: 0; transform: translateY(-20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+</style>

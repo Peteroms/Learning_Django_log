@@ -5,6 +5,7 @@ class Topic(models.Model):
     """A topic the user is learning about"""
     text = models.CharField(max_length=250) # CharField when you want to store a small amount of text, such as name, title etc.
     date_added = models.DateTimeField(auto_now_add=True) # Record the current date and time automatically.
+    owner = models.ForeignKey('auth.User', on_delete=models.CASCADE)  # Reference to the user who created the topic
 
     def __str__(self):
         """Return a string representation of the model."""

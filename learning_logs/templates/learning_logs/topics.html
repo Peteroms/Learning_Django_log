@@ -1,20 +1,34 @@
 {% extends "learning_logs/base.html" %}
 
 {% block content %}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h1 class="text-center">Topics</h1>
 
-<p>Topics</p>
- <ul>
-     {% for topic in topics %}
-        <li>
-            <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
-        </li>
-     {% empty %}
-        <li>No topics have been added yet.</li>
-     {% endfor %}
- </ul>
+        {% if topics %}
+            <div class="list-group">
+                {% for topic in topics %}
+                    <a href="{% url 'learning_logs:topic' topic.id %}" class="list-group-item">
+                        <h4 class="list-group-item-heading">{{ topic }}</h4>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center">
+                No topics have been added yet.
+            </div>
+        {% endif %}
 
- <a href="{% url 'learning_logs:new_topic' %}">Add a new topic:</a>
-
+        <div class="text-center" style="margin-top: 20px;">
+            <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-success btn-lg">Add New Topic</a>
+        </div>
+    </div>
+</div>
 {% endblock content %}
-
- 
+<!-- Simple fade-in animation -->
+<style>
+    @keyframes fadeInDown {
+        0% { opacity: 0; transform: translateY(-20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+</style>

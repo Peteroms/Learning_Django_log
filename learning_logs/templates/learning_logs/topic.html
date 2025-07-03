@@ -1,21 +1,43 @@
 {% extends 'learning_logs/base.html' %}
 
 {% block content %}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h2 class="text-center">{{ topic }}</h2>
 
-<p>Topic: {{ topic }}</p>
+        <div class="text-center" style="margin: 20px 0;">
+            <a href="{% url 'learning_logs:new_entry' topic.id %}" class="btn btn-success btn-lg">Add New Entry</a>
+        </div>
 
-<p>Entries:</p>
-<ul>
-    {% for entry in entries %}
-        <li>
-            <p>{{ entry.date_added|date:'M d, Y H:i' }}</p>
-            <p>{{ entry.text|linebreaks }}</p>
-        </li>
-    {% empty %}
-        <li>
-            There are no entries for this topic yet.
-        </li>
-    {% endfor %}
-</ul>
+        {% if entries %}
+            {% for entry in entries %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>
+                            {{ entry.date_added|date:'M d, Y H:i' }}
+                            <small class="pull-right">
+                                <a href="{% url 'learning_logs:edit_entry' entry.id %}" class="btn btn-xs btn-primary">Edit Entry</a>
+                            </small>
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>{{ entry.text|linebreaks }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-info text-center">
+                There are no entries for this topic yet.
+            </div>
+        {% endif %}
 
+    </div>
+</div>
 {% endblock content %}
+<!-- Simple fade-in animation -->
+<style>
+    @keyframes fadeInDown {
+        0% { opacity: 0; transform: translateY(-20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+</style>

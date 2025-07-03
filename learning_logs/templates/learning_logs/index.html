@@ -1,5 +1,19 @@
 {% extends "learning_logs/base.html" %}
 
 {% block content %}
-<p>Learning Log helps you keep track of your learning, for any topic you are learning about.</p> 
+<div class="jumbotron text-center" style="background-color: #c48585; color: white; padding: 30px 20px; margin-bottom: 0;">
+    <h1 class="display-4">Welcome to Your Learning Log!</h1>
+    <h2 class="display-3">Track Your Learning.</h2>
+    <p class="lead">Create your own Learning Log and organize the topics you're learning about.</p>
+    <p>
+        <a class="btn btn-primary btn-lg" href="{% url 'users:register' %}" role="button">Register an Account</a>
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2 text-center">
+        <h3>Keep track of what you learn.</h3>
+        <p>Whenever you learn something new, make an entry summarizing your knowledge and progress.</p>
+    </div>
+</div>
 {% endblock content %}

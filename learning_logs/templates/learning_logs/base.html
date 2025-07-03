@@ -1,7 +1,83 @@
-<p>
-<a href="{% url 'learning_logs:index' %}">Learning Log</a> -
-<a href="{% url 'learning_logs:topics' %}">Topics</a>
-<p>
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}{% endblock content %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning Log</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
 
+    <style>
+        body {
+            padding-top: 70px;
+            background-color: #dda9a9;
+        }
+        footer {
+            margin-top: 30px;
+            padding: 20px 0;
+            background-color: #c48585;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: rgb(55, 68, 87);">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'learning_logs:index' %}">Study Diary</a>
+            </div>
+
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'learning_logs:topics' %}">Topics</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                        <li><a>Hello, {{ user.username }}</a></li>
+                        <li>   
+                           <form action="{% url 'users:logout' %}" method="post" style="display: inline;">
+                              {% csrf_token %}
+                        <button type="submit" style="background-color: rgb(179, 186, 196);">Log out</button>
+                            </form>    
+                        </li>
+                    {% else %}
+                        <li><a href="{% url 'users:register' %}">Register</a></li>
+                        <li><a href="{% url 'users:login' %}">Log in</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}{% endblock content %}
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; {{ year }} Study Diary.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
